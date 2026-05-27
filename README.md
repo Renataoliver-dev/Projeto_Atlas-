@@ -1,9 +1,8 @@
 <div align="center">
-  <img src="Assents\imagens\Diagrama.jpeg"
-  alt="Do Piauí para o Mundo">
+ 
+  
 
-<img src="Assents\imagens\prototipo.jpeg"
-  alt="Trilha Superior">
+
 
 <br><br>
 
@@ -57,10 +56,10 @@ O ecossistema foi construído utilizando componentes de alta acessibilidade para
 
 ## <span style="color:#C05621">3. Engenharia e Análise do Diagrama de Arquitetura</span>
 
-Abaixo está a representation oficial do fluxo de dados do sistema (conforme o arquivo `diagrama.jpeg` integrado ao repositório):
+Abaixo está a representação oficial do fluxo de dados do sistema:
 
 <div align="center">
-  <img src="./diagrama.jpeg" alt="Diagrama de Arquitetura da Solução A.T.L.A.S." width="85%">
+  <img src="Assents\imagens\Diagrama.jpeg" alt="Diagrama de Arquitetura da Solução A.T.L.A.S." width="85%">
 </div>
 
 ### Explicação Detalhada do Fluxograma: A Dinâmica de Causa e Efeito
@@ -86,7 +85,7 @@ O sistema opera em uma malha de feedback fechada baseada em ações físicas e r
 Abaixo está o registro visual do protótipo robótico móvel (carrinho adaptado) desenvolvido para a validação do MVP em ambiente clínico:
 
 <div align="center">
-  <img src="./hardware.jpeg" alt="Protótipo do Carrinho Robótico A.T.L.A.S." width="65%">
+  <img src="Assents\imagens\prototipo.jpeg" alt="Protótipo do Carrinho Robótico A.T.L.A.S." width="65%">
 </div>
 
 ### Componentes e Conexões Técnicas
