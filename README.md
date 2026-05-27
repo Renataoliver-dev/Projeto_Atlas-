@@ -1,10 +1,22 @@
 <div align="center">
-  <img src="https://img.shields.io/badge/PROGRAMA-DO_PIAUÍ_PARA_O_MUNDO_2026-00562C?style=for-the-badge&logo=github&logoColor=white" alt="Do Piauí para o Mundo">
-  <img src="https://img.shields.io/badge/TRILHA-HACKATHON_ENSINO_SUPERIOR-1A365D?style=for-the-badge" alt="Trilha Superior">
-  <br><br>
+  <img src="Assents\imagens\Diagrama.jpeg"
+  alt="Do Piauí para o Mundo">
+
+<img src="Assents\imagens\prototipo.jpeg"
+  alt="Trilha Superior">
+
+<br><br>
+
   <h1>PROJETO <span style="color:#1A365D">A.T.L.A.S.</span></h1>
+
   <h3><b>Sistema de Assistência em Terapia e Locomoção Adaptativa</b></h3>
-  <p><i>Desenvolvido por acadêmicos do PIT (Piauí Instituto de Tecnologia) como solução de tecnologia assistiva para reabilitação pediátrica.</i></p>
+
+  <p>
+    <i>
+      Desenvolvido por acadêmicos do PIT (Piauí Instituto de Tecnologia)
+      como solução de tecnologia assistiva para reabilitação pediátrica.
+    </i>
+  </p>
 </div>
 
 ---
@@ -22,9 +34,10 @@
 A cinesioterapia pediátrica convencional representa um desafio significativo no desenvolvimento motor de crianças neurodivergentes e neurotípicas. Por ser baseada em exercícios analógicos e repetitivos, o tratamento frequentemente gera desinteresse, fadiga crônica e resistência ativa por parte dos pacientes, culminando na quebra ou abandono voluntário do acompanhamento clínico.
 
 De acordo com o referencial teórico do projeto, essa interrupção gera sérios impactos interligados:
-* **Impacto Biológico:** Favorecimento da poda sináptica (perda de conexões neurais recém-formadas por falta de estímulo) e o avanço de encurtamentos musculares severos.
-* **Impacto Psicológico:** Frustração e estresse infantil durante as sessões.
-* **Impacto Socioeconômico:** Sobrecarga emocional e financeira sobre os cuidadores, agravada pelo custo proibitivo das tecnologias assistivas importadas disponíveis no mercado nacional.
+
+- **Impacto Biológico:** Favorecimento da poda sináptica (perda de conexões neurais recém-formadas por falta de estímulo) e o avanço de encurtamentos musculares severos.
+- **Impacto Psicológico:** Frustração e estresse infantil durante as sessões.
+- **Impacto Socioeconômico:** Sobrecarga emocional e financeira sobre os cuidadores, agravada pelo custo proibitivo das tecnologias assistivas importadas disponíveis no mercado nacional.
 
 O **Projeto A.T.L.A.S.** mitiga esse cenário ao aplicar a Visão Computacional para criar um ambiente de reabilitação completamente não invasivo (sem fios ou sensores colados ao corpo), mascarando o esforço mecânico da terapia através de uma dinâmica gamificada.
 
@@ -34,11 +47,11 @@ O **Projeto A.T.L.A.S.** mitiga esse cenário ao aplicar a Visão Computacional 
 
 O ecossistema foi construído utilizando componentes de alta acessibilidade para garantir a viabilidade econômica do protótipo:
 
-* **Ambiente Python (v3.10+):** Central lógica responsável por rodar o pipeline de processamento digital de imagem.
-* **OpenCV (opencv-python):** Responsável por gerenciar a webcam do computador host, capturar a matriz de pixels brutos em tempo real e realizar a conversão do espaço de cor BGR para RGB.
-* **MediaPipe Hands (mediapipe):** Framework utilizado para interceptar os frames tratados e realizar o rastreamento topológico da mão do paciente através da extração de 21 pontos articulados tridimensionais (Landmarks) em coordenadas cartesianas.
-* **PySerial:** Módulo responsável pelo controle de I/O, gerenciando a abertura da porta serial virtual (COM) e a transmissão dos pacotes de dados via Bluetooth.
-* **Firmware C++ (Arduino IDE):** Código nativo em C++ embutido no microcontrolador para leitura activa do buffer serial e modulação por largura de pulso (PWM).
+- **Ambiente Python (v3.10+):** Central lógica responsável por rodar o pipeline de processamento digital de imagem.
+- **OpenCV (opencv-python):** Responsável por gerenciar a webcam do computador host, capturar a matriz de pixels brutos em tempo real e realizar a conversão do espaço de cor BGR para RGB.
+- **MediaPipe Hands (mediapipe):** Framework utilizado para interceptar os frames tratados e realizar o rastreamento topológico da mão do paciente através da extração de 21 pontos articulados tridimensionais (Landmarks) em coordenadas cartesianas.
+- **PySerial:** Módulo responsável pelo controle de I/O, gerenciando a abertura da porta serial virtual (COM) e a transmissão dos pacotes de dados via Bluetooth.
+- **Firmware C++ (Arduino IDE):** Código nativo em C++ embutido no microcontrolador para leitura activa do buffer serial e modulação por largura de pulso (PWM).
 
 ---
 
@@ -54,16 +67,16 @@ Abaixo está a representation oficial do fluxo de dados do sistema (conforme o a
 
 O sistema opera em uma malha de feedback fechada baseada em ações físicas e respostas mecânicas estruturadas da seguinte forma:
 
-* **A Causa (Entrada e Processamento de Dados):**
-  Durante a sessão de fisioterapia, o paciente realiza o movimento gestual prescrito no campo de visão da Webcam. O OpenCV captura essa sequência de frames e a envia para o MediaPipe Hands, que mapeia instantaneamente a anatomia da mão do usuário. 
-  
+- **A Causa (Entrada e Processamento de Dados):**
+  Durante a sessão de fisioterapia, o paciente realiza o movimento gestual prescrito no campo de visão da Webcam. O OpenCV captura essa sequência de frames e a envia para o MediaPipe Hands, que mapeia instantaneamente a anatomia da mão do usuário.
+
   O script Python executa uma análise geométrica baseada em regras matemáticas estritas sobre os 21 pontos mapeados (medindo a distância pixelar entre os nós dos dedos). Quando o paciente atinge a abertura ou o posicionamento correto da mão exigido pelo exercício, a lógica do script é validada e gera um comando de direção correspondente, transmitido como um caractere serial específico (como o caractere 'F' para frente).
 
-* **O Efeito (Comunicação e Atuação Mecânica):**
+- **O Efeito (Comunicação e Atuação Mecânica):**
   O caractere gerado é imediatamente injetado na porta serial e transmitido sem fio via Bluetooth através do protocolo serial de radiofrequência (RFCOMM). O receptor acoplado ao protótipo capta o sinal e o transfere para o Arduino Uno.
-  
-  O firmware do Arduino interpreta o caractere recebido e aciona os pinos digitais de controle de velocidade e direção conectados ao driver Ponte H L298N. A Ponte H libera a corrente de potência necessária para ativar os Motores CC, fazendo com que o Carrinho se desloque fisicamente para a frente. 
-  
+
+  O firmware do Arduino interpreta o caractere recebido e aciona os pinos digitais de controle de velocidade e direção conectados ao driver Ponte H L298N. A Ponte H libera a corrente de potência necessária para ativar os Motores CC, fazendo com que o Carrinho se desloque fisicamente para a frente.
+
   Esse movimento do robô atua como um feedback lúdico visual imediato para a criança. Ao perceber que o seu movimento corporal controla o veículo, o paciente recebe um estímulo cognitivo positivo, gerando o efeito terapêutico desejado: aumento do engajamento, extensão do tempo de foco na sessão e continuidade do tratamento voluntário.
 
 ---
@@ -118,9 +131,10 @@ O desenvolvimento técnico deste MVP foi realizado de forma colaborativa pela eq
 
 <br>
 
-* **Professora Orientadora:** Isamara da Silva Nascimento (PIT)
+- **Professora Orientadora:** Isamara da Silva Nascimento (PIT)
 
 ---
+
 <div align="center">
   <small>Repositório acadêmico oficial submetido à avaliação da banca examinadora da 6ª Fase do Programa Do Piauí para o Mundo 2026.</small>
 </div>
