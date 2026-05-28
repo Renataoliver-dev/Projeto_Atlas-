@@ -1,40 +1,70 @@
-// Defina os pinos dos motores (ajuste conforme a sua montagem)
-const int motorEsqFrente = 5;
-const int motorEsqTras = 6;
-const int motorDirFrente = 9;
-const int motorDirTras = 10;
+#include <SoftwareSerial.h>
+
+SoftwareSerial bluetooth(2, 3);
+
+// Motores
+const int motorA1 = 5;
+const int motorA2 = 6;
+const int motorB1 = 9;
+const int motorB2 = 10;
+
+char comando;
 
 void setup() {
-  Serial.begin(9600);
-  pinMode(motorEsqFrente, OUTPUT);
-  pinMode(motorEsqTras, OUTPUT);
-  pinMode(motorDirFrente, OUTPUT);
-  pinMode(motorDirTras, OUTPUT);
+  bluetooth.begin(9600);
+
+  pinMode(motorA1, OUTPUT);
+  pinMode(motorA2, OUTPUT);
+  pinMode(motorB1, OUTPUT);
+  pinMode(motorB2, OUTPUT);
+
+  parar();
 }
 
 void loop() {
-  if (Serial.available() > 0) {
-    char comando = Serial.read();
 
-    if (comando == 'F') { // Frente
-      digitalWrite(motorEsqFrente, HIGH);
-      digitalWrite(motorDirFrente, HIGH);
-      digitalWrite(motorEsqTras, LOW);
-      digitalWrite(motorDirTras, LOW);
-    } 
-    else if (comando == 'P') { // Parar
-      digitalWrite(motorEsqFrente, LOW);
-      digitalWrite(motorDirFrente, LOW);
-      digitalWrite(motorEsqTras, LOW);
-      digitalWrite(motorDirTras, LOW);
-    }
-    else if (comando == 'D') { // Direita (roda esquerda gira, direita para)
-      digitalWrite(motorEsqFrente, HIGH);
-      digitalWrite(motorDirFrente, LOW);
-    }
-    else if (comando == 'E') { // Esquerda (roda direita gira, esquerda para)
-      digitalWrite(motorEsqFrente, LOW);
-      digitalWrite(motorDirFrente, HIGH);
+  if (bluetooth.available()) {
+
+    comando = bluetooth.read();
+
+    switch (comando) {
+
+      case 'F': frente();   break;
+      case 'B': tras();     break;
+      case 'L': esquerda(); break;
+      case 'R': direita();  break;
+      case 'S': parar();    break;
     }
   }
+}
+
+// =========================
+// MOVIMENTOS
+// =========================
+
+void frente() {
+  digitalWrite(motorA1, HIGH); digitalWrite(motorA2, LOW);
+  digitalWrite(motorB1, HIGH); digitalWrite(motorB2, LOW);
+}
+
+void tras() {
+  digitalWrite(motorA1, LOW); digitalWrite(motorA2, HIGH);
+  digitalWrite(motorB1, LOW); digitalWrite(motorB2, HIGH);
+}
+
+void esquerda() {
+  digitalWrite(motorA1, LOW);  digitalWrite(motorA2, HIGH);
+  digitalWrite(motorB1, HIGH); digitalWrite(motorB2, LOW);
+}
+
+void direita() {
+  digitalWrite(motorA1, HIGH); digitalWrite(motorA2, LOW);
+  digitalWrite(motorB1, LOW);  digitalWrite(motorB2, HIGH);
+}
+
+void parar() {
+  digitalWrite(motorA1, LOW);
+  digitalWrite(motorA2, LOW);
+  digitalWrite(motorB1, LOW);
+  digitalWrite(motorB2, LOW);
 }
