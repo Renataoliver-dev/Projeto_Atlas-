@@ -6,7 +6,7 @@ import mediapipe as mp
 import serial
 import time
 
-# Tenta conectar ao Arduino. Ajuste a porta 'COM3' se necessário.
+# Ajuste a porta 'COM3' se necessário.
 try:
     arduino = serial.Serial('COM3', 9600)
     time.sleep(2)
